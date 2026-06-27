@@ -1,0 +1,25 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Database (regenerated and reseeded on first run) ----
+backend/mill.db
+backend/*.db-journal
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Logs ----
+*.log
+
+# Generated diagrams and documents are committed so the docs build offline.
+# Uncomment the next lines if you prefer to keep them out of version control.
+# docs/*.docx
+# docs/diagrams/*.png

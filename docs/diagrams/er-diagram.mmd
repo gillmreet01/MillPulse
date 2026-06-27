@@ -1,0 +1,101 @@
+%% Entity-Relationship Diagram
+%% Smart Paper Mill Production Monitoring Dashboard
+%% Render at https://mermaid.live or in any Mermaid-enabled viewer.
+erDiagram
+    ROLES ||--o{ USERS : "has"
+    USERS ||--o{ PRODUCTION_RECORDS : "enters"
+    MACHINES ||--o{ PRODUCTION_RECORDS : "produces"
+    SHIFTS ||--o{ PRODUCTION_RECORDS : "during"
+    PRODUCTION_RECORDS ||--o{ QUALITY_CHECKS : "checked_by"
+    USERS ||--o{ QUALITY_CHECKS : "inspects"
+    MACHINES ||--o{ DOWNTIME_EVENTS : "logs"
+    SHIFTS ||--o{ DOWNTIME_EVENTS : "during"
+    USERS ||--o{ DOWNTIME_EVENTS : "logged_by"
+    MACHINES ||--o{ MAINTENANCE_LOGS : "needs"
+    USERS ||--o{ MAINTENANCE_LOGS : "assigned_to"
+    MACHINES ||--o{ ALERTS : "raises"
+    MACHINES ||--o{ THRESHOLDS : "limited_by"
+    USERS ||--o{ ACTIVITY_LOGS : "performs"
+
+    ROLES {
+        int role_id PK
+        string role_name
+    }
+    USERS {
+        int user_id PK
+        string name
+        string email
+        string password_hash
+        int role_id FK
+        boolean is_active
+    }
+    MACHINES {
+        int machine_id PK
+        string machine_name
+        string department
+        string status
+        decimal capacity_tpd
+        decimal efficiency
+    }
+    SHIFTS {
+        int shift_id PK
+        string shift_name
+        time start_time
+        time end_time
+    }
+    PRODUCTION_RECORDS {
+        int record_id PK
+        int machine_id FK
+        int shift_id FK
+        int operator_id FK
+        decimal production_qty
+        string paper_grade
+        decimal efficiency
+        int downtime_min
+        date recorded_at
+    }
+    QUALITY_CHECKS {
+        int check_id PK
+        int record_id FK
+        int inspector_id FK
+        string parameter
+        decimal value
+        boolean is_within_spec
+    }
+    DOWNTIME_EVENTS {
+        int downtime_id PK
+        int machine_id FK
+        int shift_id FK
+        int logged_by FK
+        string reason_category
+        int duration_min
+    }
+    MAINTENANCE_LOGS {
+        int maintenance_id PK
+        int machine_id FK
+        int engineer_id FK
+        string issue
+        string priority
+        string status
+        decimal estimated_cost
+    }
+    THRESHOLDS {
+        int threshold_id PK
+        int machine_id FK
+        string parameter
+        decimal min_value
+        decimal max_value
+    }
+    ALERTS {
+        int alert_id PK
+        int machine_id FK
+        string type
+        string severity
+        boolean is_acknowledged
+    }
+    ACTIVITY_LOGS {
+        int log_id PK
+        int user_id FK
+        string action
+        datetime timestamp
+    }

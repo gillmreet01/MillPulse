@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Settings — Smart Paper Mill Monitoring Dashboard" />
+  <title>Settings · Smart Paper Mill Monitor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script src="../assets/theme.js"></script>
+</head>
+<body data-require-role="Administrator">
+  <div class="app">
+    <!-- Sidebar is injected by the shared component -->
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="page-title">
+            <h1>Settings</h1>
+            <p>Configure your account and system preferences</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="avatar topbar-avatar">AS</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="settings-layout">
+          <!-- Sub navigation -->
+          <aside class="settings-nav" id="settingsNav">
+            <button class="snav-item active" data-tab="general">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              General
+            </button>
+            <button class="snav-item" data-tab="users">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Users
+            </button>
+            <button class="snav-item" data-tab="machines">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V8l5 3V8l5 3V8l5 3v9"/><path d="M9 20v-4h2v4"/></svg>
+              Machines
+            </button>
+            <button class="snav-item" data-tab="activity">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+              Activity
+            </button>
+            <button class="snav-item" data-tab="notifications">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M21 17H3a3 3 0 0 0 1.7-2.7V10a7.3 7.3 0 0 1 14.6 0v4.3A3 3 0 0 0 21 17Z"/></svg>
+              Notifications
+            </button>
+            <button class="snav-item" data-tab="thresholds">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              Thresholds
+            </button>
+            <button class="snav-item" data-tab="appearance">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="12" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="10" cy="19" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20"/></svg>
+              Appearance
+            </button>
+          </aside>
+
+          <!-- Panels -->
+          <section class="settings-panels">
+            <!-- GENERAL -->
+            <div class="panel active" data-panel="general">
+              <div class="card">
+                <h2>Profile</h2>
+                <p class="panel-sub">Update your personal information</p>
+                <div class="form-grid">
+                  <div class="field"><label>Full Name</label><input type="text" value="Amrit Singh" /></div>
+                  <div class="field"><label>Email</label><input type="email" value="amrit.singh@satia.local" /></div>
+                  <div class="field"><label>Role</label><input type="text" value="Administrator" disabled /></div>
+                  <div class="field"><label>Phone</label><input type="text" value="+91 98765 43210" /></div>
+                </div>
+              </div>
+              <div class="card">
+                <h2>Plant Defaults</h2>
+                <p class="panel-sub">Default values used across the dashboard</p>
+                <div class="form-grid">
+                  <div class="field"><label>Default Shift</label>
+                    <select><option>Shift A</option><option selected>Shift B</option><option>Shift C</option></select>
+                  </div>
+                  <div class="field"><label>Production Unit</label>
+                    <select><option selected>Tonnes (t)</option><option>Kilograms (kg)</option></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- USERS (admin) -->
+            <div class="panel" data-panel="users">
+              <div class="card">
+                <div class="users-head">
+                  <div><h2>User Management</h2><p class="panel-sub">Create accounts and assign roles</p></div>
+                  <button class="btn btn-primary" id="addUserToggle" type="button">+ Add User</button>
+                </div>
+
+                <!-- Add-user form (hidden until toggled) -->
+                <form class="add-user" id="addUserForm" hidden>
+                  <div class="form-grid">
+                    <div class="field"><label>Full Name</label><input type="text" id="nu_name" required /></div>
+                    <div class="field"><label>Email</label><input type="email" id="nu_email" required /></div>
+                    <div class="field"><label>Username</label><input type="text" id="nu_username" required /></div>
+                    <div class="field"><label>Password</label><input type="password" id="nu_password" required /></div>
+                    <div class="field"><label>Role</label>
+                      <select id="nu_role">
+                        <option>Administrator</option><option>Plant Manager</option>
+                        <option>Shift Supervisor</option><option selected>Machine Operator</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                    <button type="button" class="btn btn-ghost" id="addUserCancel">Cancel</button>
+                  </div>
+                </form>
+
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <thead>
+                      <tr><th>Name</th><th>Email</th><th>Username</th><th>Role</th><th>Active</th><th class="actions-col">Actions</th></tr>
+                    </thead>
+                    <tbody id="usersBody"><!-- injected --></tbody>
+                  </table>
+                </div>
+                <p class="users-hint" id="usersHint">Loading users…</p>
+              </div>
+            </div>
+
+            <!-- MACHINES (admin) -->
+            <div class="panel" data-panel="machines">
+              <div class="card">
+                <div class="users-head">
+                  <div><h2>Machine Management</h2><p class="panel-sub">Add, edit or disable plant machines</p></div>
+                  <button class="btn btn-primary" id="addMachineToggle" type="button">+ Add Machine</button>
+                </div>
+
+                <form class="add-user" id="addMachineForm" hidden>
+                  <div class="form-grid">
+                    <div class="field"><label>Machine ID</label><input type="text" id="nm_id" placeholder="e.g. PM-121" required /></div>
+                    <div class="field"><label>Name</label><input type="text" id="nm_name" required /></div>
+                    <div class="field"><label>Department</label>
+                      <select id="nm_department">
+                        <option>Raw Material Yard</option><option>Pulp Preparation</option>
+                        <option>Chemical Processing</option><option>Paper Machine Section</option>
+                        <option>Drying Section</option><option>Finishing &amp; Cutting</option>
+                        <option>Packaging</option><option>Dispatch</option><option>Maintenance</option><option>Utilities</option>
+                      </select>
+                    </div>
+                    <div class="field"><label>Capacity (TPD)</label><input type="number" id="nm_capacity" /></div>
+                    <div class="field"><label>Status</label>
+                      <select id="nm_status"><option>Running</option><option selected>Idle</option><option>Maintenance</option><option>Stopped</option></select>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Machine</button>
+                    <button type="button" class="btn btn-ghost" id="addMachineCancel">Cancel</button>
+                  </div>
+                </form>
+
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <thead>
+                      <tr><th>ID</th><th>Name</th><th>Department</th><th class="num">Capacity</th><th>Status</th><th>Active</th><th class="actions-col">Actions</th></tr>
+                    </thead>
+                    <tbody id="machinesBody"><!-- injected --></tbody>
+                  </table>
+                </div>
+                <p class="users-hint" id="machinesHint">Loading machines…</p>
+              </div>
+            </div>
+
+            <!-- ACTIVITY LOG (admin) -->
+            <div class="panel" data-panel="activity">
+              <div class="card">
+                <div class="users-head">
+                  <div><h2>Activity Log</h2><p class="panel-sub">Audit trail of logins and key changes</p></div>
+                  <button class="btn btn-ghost" id="refreshActivity" type="button">Refresh</button>
+                </div>
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <thead>
+                      <tr><th>Time</th><th>User</th><th>Action</th><th>Entity</th><th>Detail</th></tr>
+                    </thead>
+                    <tbody id="activityBody"><!-- injected --></tbody>
+                  </table>
+                </div>
+                <p class="users-hint" id="activityHint">Loading activity…</p>
+              </div>
+            </div>
+
+            <!-- NOTIFICATIONS -->
+            <div class="panel" data-panel="notifications">
+              <div class="card">
+                <h2>Alert Preferences</h2>
+                <p class="panel-sub">Choose what you get notified about</p>
+                <ul class="toggle-list">
+                  <li><div><strong>Machine downtime</strong><span>Notify when a machine stops unexpectedly</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></li>
+                  <li><div><strong>Quality out-of-spec</strong><span>Alert on GSM / moisture deviations</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></li>
+                  <li><div><strong>Maintenance due</strong><span>Remind about scheduled maintenance</span></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></li>
+                  <li><div><strong>Daily report email</strong><span>Send a production summary at shift end</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- THRESHOLDS -->
+            <div class="panel" data-panel="thresholds">
+              <div class="card">
+                <h2>Parameter Thresholds</h2>
+                <p class="panel-sub">Limits that trigger quality / temperature alerts</p>
+                <div class="form-grid">
+                  <div class="field"><label>GSM Minimum</label><input type="number" id="th_gsm_min" /></div>
+                  <div class="field"><label>GSM Maximum</label><input type="number" id="th_gsm_max" /></div>
+                  <div class="field"><label>Moisture Max (%)</label><input type="number" id="th_moisture_max" step="0.1" /></div>
+                  <div class="field"><label>Temperature Max (°C)</label><input type="number" id="th_temp_max" /></div>
+                  <div class="field"><label>Min Efficiency (%)</label><input type="number" id="th_efficiency_min" /></div>
+                  <div class="field"><label>Downtime Alert (min)</label><input type="number" id="th_downtime_max" /></div>
+                </div>
+                <div class="form-actions" style="margin-top:18px">
+                  <button class="btn btn-primary" id="saveThresholdsBtn" type="button">Save Thresholds</button>
+                  <span class="users-hint" id="thresholdsHint"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- APPEARANCE -->
+            <div class="panel" data-panel="appearance">
+              <div class="card">
+                <h2>Appearance</h2>
+                <p class="panel-sub">Personalize how the dashboard looks</p>
+                <ul class="toggle-list">
+                  <li><div><strong>Compact density</strong><span>Reduce padding for more data on screen</span></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></li>
+                  <li><div><strong>Dark mode</strong><span>Switch the dashboard to a dark theme</span></div><label class="switch"><input type="checkbox" data-theme-toggle><span class="slider"></span></label></li>
+                  <li><div><strong>Show live tickers</strong><span>Animate live metric updates</span></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Save bar -->
+            <div class="save-bar">
+              <button class="btn btn-ghost" id="resetBtn">Discard</button>
+              <button class="btn btn-primary" id="saveBtn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+                Save Changes
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <footer class="page-footer">
+          &copy; 2026 Satia Industries Ltd. · Smart Paper Mill Monitoring · Academic Project
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../assets/auth.js"></script>
+  <script src="../assets/sidebar.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

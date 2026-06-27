@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Reports & Analytics — Smart Paper Mill Monitoring Dashboard" />
+  <title>Reports · Smart Paper Mill Monitor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script src="../assets/theme.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- ============================== SIDEBAR ============================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l5 3V9l5 3V9l5 3V7a1 1 0 0 1 1-1h1v15Z"/><path d="M3 21h18"/></svg>
+        </div>
+        <div class="logo-text"><strong>Satia</strong><span>Mill Monitor</span></div>
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <nav class="nav">
+        <p class="nav-section">Main</p>
+        <a href="../dashboard/index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="../machines/index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V8l5 3V8l5 3V8l5 3v9"/><path d="M9 20v-4h2v4"/></svg>
+          <span>Machines</span>
+        </a>
+        <a href="../production/index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          <span>Production</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Quality</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/></svg>
+          <span>Downtime</span>
+        </a>
+        <a href="../maintenance/index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/></svg>
+          <span>Maintenance</span>
+        </a>
+
+        <p class="nav-section">Insights</p>
+        <a href="#" class="nav-item active">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8M8 17h8M8 9h2"/></svg>
+          <span>Reports</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M21 17H3a3 3 0 0 0 1.7-2.7V10a7.3 7.3 0 0 1 14.6 0v4.3A3 3 0 0 0 21 17Z"/></svg>
+          <span>Alerts</span><span class="nav-badge">3</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="avatar">AS</div>
+        <div class="user-meta"><strong>Amrit Singh</strong><span>Administrator</span></div>
+      </div>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ============================== MAIN ============================== -->
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="page-title">
+            <h1>Reports &amp; Analytics</h1>
+            <p>Production performance insights</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="avatar topbar-avatar">AS</div>
+        </div>
+      </header>
+
+      <main class="content" id="reportContent">
+        <!-- ===== Report header (visible on print too) ===== -->
+        <div class="report-banner">
+          <div>
+            <h2>Production Report</h2>
+            <p>Satia Industries Ltd. · Generated on <span id="reportDate">—</span></p>
+          </div>
+          <div class="report-logo">SATIA · MILL MONITOR</div>
+        </div>
+
+        <!-- ===== Toolbar: filters + export ===== -->
+        <section class="toolbar no-print">
+          <div class="filters-left">
+            <div class="period-tabs" id="periodTabs" role="group" aria-label="Report period">
+              <button class="ptab active" data-period="7">7 Days</button>
+              <button class="ptab" data-period="14">14 Days</button>
+              <button class="ptab" data-period="30">30 Days</button>
+            </div>
+            <select id="machineFilter" class="filter-select" aria-label="Filter by machine">
+              <option value="all">All machines</option>
+            </select>
+            <select id="shiftFilter" class="filter-select" aria-label="Filter by shift">
+              <option value="all">All shifts</option>
+              <option value="Morning">Morning</option>
+              <option value="Evening">Evening</option>
+              <option value="Night">Night</option>
+            </select>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn btn-ghost" id="csvBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+              Export CSV
+            </button>
+            <button class="btn btn-ghost" id="printBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6Z"/></svg>
+              Print
+            </button>
+            <button class="btn btn-primary" id="exportBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
+              Export as PDF
+            </button>
+          </div>
+        </section>
+
+        <!-- ===== SUMMARY CARDS ===== -->
+        <section class="kpi-grid" id="kpiGrid" aria-label="Summary"><!-- injected --></section>
+
+        <!-- ===== CHARTS ===== -->
+        <section class="grid-2">
+          <article class="card chart-card">
+            <div class="card-head">
+              <div><h3>Daily Production</h3><p class="card-sub" id="dailySub">Output per day (tonnes)</p></div>
+              <button class="icon-ghost no-print" data-export="Daily Production" aria-label="Export chart">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              </button>
+            </div>
+            <div class="chart-body"><canvas id="dailyChart"></canvas></div>
+          </article>
+
+          <article class="card chart-card">
+            <div class="card-head">
+              <div><h3>Downtime Analysis</h3><p class="card-sub">Hours lost by reason</p></div>
+              <button class="icon-ghost no-print" data-export="Downtime" aria-label="Export chart">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              </button>
+            </div>
+            <div class="chart-body doughnut-wrap"><canvas id="downtimeChart"></canvas></div>
+            <ul class="chart-legend" id="downtimeLegend"></ul>
+          </article>
+        </section>
+
+        <section class="grid-2">
+          <article class="card chart-card">
+            <div class="card-head">
+              <div><h3>Weekly Production</h3><p class="card-sub">Output per week (tonnes)</p></div>
+              <button class="icon-ghost no-print" data-export="Weekly Production" aria-label="Export chart">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              </button>
+            </div>
+            <div class="chart-body"><canvas id="weeklyChart"></canvas></div>
+          </article>
+
+          <article class="card chart-card">
+            <div class="card-head">
+              <div><h3>Monthly Production</h3><p class="card-sub">Output trend (tonnes)</p></div>
+              <button class="icon-ghost no-print" data-export="Monthly Production" aria-label="Export chart">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              </button>
+            </div>
+            <div class="chart-body"><canvas id="monthlyChart"></canvas></div>
+          </article>
+        </section>
+
+        <section class="card chart-card">
+          <div class="card-head">
+            <div><h3>Machine Utilization</h3><p class="card-sub">Utilization rate per machine (%)</p></div>
+            <button class="icon-ghost no-print" data-export="Machine Utilization" aria-label="Export chart">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+            </button>
+          </div>
+          <div class="chart-body tall"><canvas id="utilizationChart"></canvas></div>
+        </section>
+
+        <section class="card chart-card">
+          <div class="card-head">
+            <div><h3>OEE by Machine</h3><p class="card-sub">Overall Equipment Effectiveness — Availability × Performance × Quality (%)</p></div>
+            <button class="icon-ghost no-print" data-export="OEE by Machine" aria-label="Export chart">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+            </button>
+          </div>
+          <div class="chart-body"><canvas id="oeeChart"></canvas></div>
+        </section>
+
+        <footer class="page-footer">
+          &copy; 2026 Satia Industries Ltd. · Smart Paper Mill Monitoring · Academic Project
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="../assets/auth.js"></script>
+  <script src="../data/dummyData.js"></script>
+  <script src="../assets/sidebar.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

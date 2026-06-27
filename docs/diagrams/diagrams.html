@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrams · Smart Paper Mill Monitor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: "Inter", system-ui, sans-serif; background: #f4f7fb; color: #0f172a; margin: 0; padding: 28px; }
+    header { margin-bottom: 18px; }
+    h1 { font-size: 22px; margin: 0; }
+    p.sub { color: #64748b; font-size: 13px; margin: 4px 0 0; }
+    section { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; margin-bottom: 24px; }
+    h2 { font-size: 17px; color: #1e4d8c; margin: 0 0 14px; }
+    .mermaid { display: flex; justify-content: center; }
+    .note { font-size: 12.5px; color: #64748b; margin-top: 10px; }
+    code { background: #eef2f7; padding: 2px 6px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>System Diagrams</h1>
+    <p class="sub">Smart Paper Mill Production Monitoring Dashboard — Satia Industries Ltd.</p>
+  </header>
+
+  <section>
+    <h2>1 · System Architecture</h2>
+    <pre class="mermaid">
+flowchart TB
+    subgraph CLIENT["CLIENT — Web Browser (Presentation Layer)"]
+        direction TB
+        PAGES["Pages (HTML/CSS/JS):<br/>Login · Dashboard · Machines · Production<br/>Maintenance · Reports · Settings"]
+        SIDEBAR["Shared Sidebar + Auth Guard<br/>(JWT in localStorage)"]
+        CHARTS["Chart.js (charts & KPIs)"]
+        DATA["MILL_DATA (demo dataset)"]
+        PAGES --- SIDEBAR
+        PAGES --- CHARTS
+        PAGES --- DATA
+    end
+    subgraph SERVER["APPLICATION SERVER — Flask / Python (Logic Layer)"]
+        direction TB
+        STATIC["Static file serving"]
+        API["REST API<br/>/api/login · /api/me · /api/users"]
+        AUTH["Auth middleware<br/>token_required · role_required<br/>JWT verify · bcrypt hashing"]
+        API --- AUTH
+    end
+    subgraph STORAGE["DATA STORE (Data Layer)"]
+        direction TB
+        DB[("SQLite — users table<br/>MySQL in production")]
+    end
+    SIDEBAR -- "fetch() + Bearer JWT (HTTPS)" --> API
+    STATIC -- "serves HTML/CSS/JS" --> PAGES
+    AUTH -- "SQL (read / write)" --> DB
+    </pre>
+  </section>
+
+  <section>
+    <h2>2 · Entity-Relationship Diagram</h2>
+    <pre class="mermaid">
+erDiagram
+    ROLES ||--o{ USERS : "has"
+    USERS ||--o{ PRODUCTION_RECORDS : "enters"
+    MACHINES ||--o{ PRODUCTION_RECORDS : "produces"
+    SHIFTS ||--o{ PRODUCTION_RECORDS : "during"
+    PRODUCTION_RECORDS ||--o{ QUALITY_CHECKS : "checked_by"
+    USERS ||--o{ QUALITY_CHECKS : "inspects"
+    MACHINES ||--o{ DOWNTIME_EVENTS : "logs"
+    SHIFTS ||--o{ DOWNTIME_EVENTS : "during"
+    USERS ||--o{ DOWNTIME_EVENTS : "logged_by"
+    MACHINES ||--o{ MAINTENANCE_LOGS : "needs"
+    USERS ||--o{ MAINTENANCE_LOGS : "assigned_to"
+    MACHINES ||--o{ ALERTS : "raises"
+    MACHINES ||--o{ THRESHOLDS : "limited_by"
+    USERS ||--o{ ACTIVITY_LOGS : "performs"
+    ROLES { int role_id PK
+            string role_name }
+    USERS { int user_id PK
+            string name
+            string email
+            string password_hash
+            int role_id FK
+            boolean is_active }
+    MACHINES { int machine_id PK
+            string machine_name
+            string department
+            string status
+            decimal capacity_tpd
+            decimal efficiency }
+    SHIFTS { int shift_id PK
+            string shift_name
+            time start_time
+            time end_time }
+    PRODUCTION_RECORDS { int record_id PK
+            int machine_id FK
+            int shift_id FK
+            int operator_id FK
+            decimal production_qty
+            string paper_grade
+            decimal efficiency
+            int downtime_min }
+    QUALITY_CHECKS { int check_id PK
+            int record_id FK
+            int inspector_id FK
+            string parameter
+            decimal value
+            boolean is_within_spec }
+    DOWNTIME_EVENTS { int downtime_id PK
+            int machine_id FK
+            int shift_id FK
+            int logged_by FK
+            string reason_category
+            int duration_min }
+    MAINTENANCE_LOGS { int maintenance_id PK
+            int machine_id FK
+            int engineer_id FK
+            string issue
+            string priority
+            string status
+            decimal estimated_cost }
+    THRESHOLDS { int threshold_id PK
+            int machine_id FK
+            string parameter
+            decimal min_value
+            decimal max_value }
+    ALERTS { int alert_id PK
+            int machine_id FK
+            string type
+            string severity
+            boolean is_acknowledged }
+    ACTIVITY_LOGS { int log_id PK
+            int user_id FK
+            string action
+            datetime timestamp }
+    </pre>
+    <p class="note">Tip: to export an image, open this page, right-click a diagram and choose
+      “Save image as…”, or use your browser’s Print → Save as PDF.</p>
+  </section>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "default", er: { useMaxWidth: true } });
+  </script>
+</body>
+</html>

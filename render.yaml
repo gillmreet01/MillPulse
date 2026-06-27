@@ -1,0 +1,14 @@
+# Render.com Blueprint — one-click deploy of the Smart Paper Mill Dashboard.
+# In the Render dashboard: New + > Blueprint, point it at this repo, and deploy.
+services:
+  - type: web
+    name: smart-paper-mill-dashboard
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --workers 1 --threads 8 --timeout 120 --bind 0.0.0.0:$PORT backend.app:app
+    envVars:
+      - key: SMM_SECRET_KEY
+        generateValue: true        # a strong secret is generated automatically
+      - key: PYTHON_VERSION
+        value: 3.12.7

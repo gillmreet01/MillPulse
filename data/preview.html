@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dataset Preview · Satia Mill Monitor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --blue:#2563eb; --navy:#0f2a47; --bg:#f4f7fb; --border:#e2e8f0; --muted:#64748b; --strong:#0f172a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:"Inter",system-ui,sans-serif; background:var(--bg); color:#334155; padding:28px; }
+    header { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:22px; }
+    h1 { font-size:22px; color:var(--strong); }
+    header p { font-size:13px; color:var(--muted); margin-top:3px; max-width:640px; }
+    .btn { font-family:inherit; font-size:13px; font-weight:600; border:none; border-radius:9px; padding:10px 15px; cursor:pointer;
+           background:linear-gradient(135deg,#2563eb,#3b82f6); color:#fff; }
+    .btn.ghost { background:#fff; color:#334155; border:1px solid var(--border); }
+    .grid { display:grid; gap:14px; margin-bottom:24px; }
+    .c4 { grid-template-columns:repeat(4,1fr); } .c5 { grid-template-columns:repeat(5,1fr); }
+    .chip { background:#fff; border:1px solid var(--border); border-radius:12px; padding:15px 16px; }
+    .chip .v { font-size:24px; font-weight:800; color:var(--strong); } .chip .l { font-size:12px; color:var(--muted); }
+    section.card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:20px; }
+    .card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+    .card-head h2 { font-size:15px; color:var(--strong); } .card-head .sub { font-size:12px; color:var(--muted); }
+    .scroll { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12.5px; white-space:nowrap; }
+    th { text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); background:#f8fafc; padding:8px 10px; border-bottom:1px solid var(--border); }
+    td { padding:8px 10px; border-bottom:1px solid var(--border); } tr:last-child td { border-bottom:none; }
+    .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .stat { background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:12px; }
+    .stat .v { font-size:18px; font-weight:800; color:var(--strong); } .stat .l { font-size:11px; color:var(--muted); }
+    .notif { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; }
+    .notif:last-child { border-bottom:none; } .dot { width:9px; height:9px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+    code { background:#eef2f7; padding:2px 6px; border-radius:5px; font-size:12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Canonical Dataset Preview — <code>MILL_DATA</code></h1>
+      <p id="meta">Loading…</p>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="btn ghost" onclick="dl('operators')">⬇ operators</button>
+      <button class="btn ghost" onclick="dl('machines')">⬇ machines</button>
+      <button class="btn ghost" onclick="dl('productionRecords')">⬇ production</button>
+      <button class="btn ghost" onclick="dl('maintenanceLogs')">⬇ maintenance</button>
+      <button class="btn" onclick="dlAll()">⬇ Download ALL</button>
+    </div>
+  </header>
+
+  <div class="grid c4" id="chips"></div>
+
+  <section class="card">
+    <div class="card-head"><h2>5 · Dashboard Statistics</h2></div>
+    <div class="stat-grid" id="stats"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>2 · Machines</h2><span class="sub">first 10 of 20</span></div>
+    <div class="scroll"><table id="tMachines"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>1 · Production Records</h2><span class="sub">first 10 of <span id="pc"></span></span></div>
+    <div class="scroll"><table id="tProduction"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>3 · Maintenance Logs</h2><span class="sub">first 10 of 30</span></div>
+    <div class="scroll"><table id="tMaintenance"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>4 · Operators</h2><span class="sub">first 10 of 25</span></div>
+    <div class="scroll"><table id="tOperators"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>7 · Notifications</h2></div>
+    <div id="notifs"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>6 &amp; 8 · Reports &amp; Charts</h2></div>
+    <p style="font-size:13px;color:var(--muted)">Available as arrays for Chart.js and report tables:
+      <code>MILL_DATA.charts.productionTrend</code>, <code>machineStatus</code>, <code>monthlyProduction</code>,
+      <code>downtime</code>, <code>efficiency</code>, <code>departmentWiseProduction</code>;
+      <code>MILL_DATA.reports.last30DaysProduction</code>, <code>monthly12</code>, <code>machineUtilization</code>,
+      <code>downtimeAnalysis</code>, <code>productionByGrade</code>, <code>shiftWise</code>.</p>
+  </section>
+
+  <script src="dummyData.js"></script>
+  <script>
+    const D = window.MILL_DATA;
+    document.getElementById("meta").textContent = `${D.meta.company} · ${D.meta.plant} · as of ${D.meta.asOfDate}`;
+    document.getElementById("pc").textContent = D.productionRecords.length;
+
+    const c = D.meta.counts;
+    document.getElementById("chips").innerHTML = [
+      ["Operators", c.operators], ["Machines", c.machines],
+      ["Production Records", c.productionRecords], ["Maintenance Logs", c.maintenanceLogs]
+    ].map(([l, v]) => `<div class="chip"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+    const s = D.dashboardStats;
+    document.getElementById("stats").innerHTML = [
+      ["Today's Production", s.todaysProduction + " t"], ["Monthly Production", s.monthlyProduction + " t"],
+      ["Annual Production", s.annualProduction.toLocaleString() + " t"], ["Running Machines", s.runningMachines],
+      ["Idle Machines", s.idleMachines], ["Under Maintenance", s.underMaintenance],
+      ["Avg Efficiency", s.averageEfficiency + " %"], ["Total Downtime", s.totalDowntime + " min"],
+      ["Energy", s.energyConsumption.toLocaleString() + " kWh"], ["Water", s.waterConsumption.toLocaleString() + " m³"]
+    ].map(([l, v]) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+    function table(id, rows, n = 10) {
+      const data = rows.slice(0, n); if (!data.length) return;
+      const cols = Object.keys(data[0]);
+      document.getElementById(id).innerHTML =
+        "<thead><tr>" + cols.map((k) => `<th>${k}</th>`).join("") + "</tr></thead><tbody>" +
+        data.map((r) => "<tr>" + cols.map((k) => `<td>${r[k] === null ? "—" : r[k]}</td>`).join("") + "</tr>").join("") +
+        "</tbody>";
+    }
+    table("tMachines", D.machines);
+    table("tProduction", D.productionRecords);
+    table("tMaintenance", D.maintenanceLogs);
+    table("tOperators", D.operators);
+
+    const color = { info:"#0ea5e9", warning:"#f59e0b", danger:"#dc2626", success:"#16a34a" };
+    document.getElementById("notifs").innerHTML = D.notifications.map((n) =>
+      `<div class="notif"><span class="dot" style="background:${color[n.type]}"></span>
+       <span><strong>${n.title}</strong> — ${n.message} <span style="color:#94a3b8">· ${n.time}</span></span></div>`).join("");
+
+    function download(name, obj) {
+      const b = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function dl(k) { download(k + ".json", D[k]); }
+    function dlAll() { download("satia-mill-dataset.json", D); }
+  </script>
+</body>
+</html>

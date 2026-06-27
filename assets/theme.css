@@ -1,0 +1,49 @@
+/* =================================================================
+   Smart Paper Mill Dashboard — Dark theme
+   Applied when <html data-theme="dark"> is set (by assets/theme.js).
+   Loaded AFTER each page's own stylesheet so these overrides win
+   (:root[data-theme="dark"] has higher specificity than :root).
+   ================================================================= */
+
+:root[data-theme="dark"] {
+  --bg:          #0b1220;   /* page background */
+  --white:       #121d33;   /* cards / surfaces / topbar */
+  --border:      #243049;
+  --text-strong: #e8eef7;
+  --text-body:   #c3d0e2;
+  --text-muted:  #8597b3;
+  --blue-50:     #16233c;   /* hover / subtle fills */
+  --blue-200:    #30436a;
+}
+
+/* Smooth fade when toggling */
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .kpi-card,
+:root[data-theme="dark"] .topbar,
+:root[data-theme="dark"] .summary-chip,
+:root[data-theme="dark"] .machine-card,
+:root[data-theme="dark"] .alert-card { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+
+/* Hardcoded light surfaces that don't use the theme variables */
+:root[data-theme="dark"] .data-table thead th { background: #16233c; color: var(--text-muted); border-color: var(--border); }
+:root[data-theme="dark"] .data-table tbody tr:hover { background: #16233c; }
+:root[data-theme="dark"] .metric { background: #16233c; border-color: var(--border); }
+:root[data-theme="dark"] .a-chip { background: #16233c; border-color: var(--border); }
+:root[data-theme="dark"] .eff-bar { background: #1c2a45; }
+:root[data-theme="dark"] .field input:disabled { background: #0e1830; color: var(--text-muted); }
+:root[data-theme="dark"] .snav-item:not(.active) { background: var(--white); }
+
+/* Inputs / selects that hardcode a white background */
+:root[data-theme="dark"] .filter-select,
+:root[data-theme="dark"] .field input,
+:root[data-theme="dark"] .field select,
+:root[data-theme="dark"] .field textarea,
+:root[data-theme="dark"] .search-box,
+:root[data-theme="dark"] .icon-btn,
+:root[data-theme="dark"] .row-btn,
+:root[data-theme="dark"] .btn-ghost { background: var(--white); color: var(--text-strong); }
+:root[data-theme="dark"] .search-box input { background: transparent; }
+
+/* Subtle scrollbar in dark */
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #2a3a5a; }

@@ -1,0 +1,31 @@
+%% System Architecture Diagram
+%% Smart Paper Mill Production Monitoring Dashboard
+%% Render at https://mermaid.live or in any Mermaid-enabled viewer.
+flowchart TB
+    subgraph CLIENT["CLIENT — Web Browser (Presentation Layer)"]
+        direction TB
+        PAGES["Pages (HTML/CSS/JS):<br/>Login · Dashboard · Machines · Production<br/>Maintenance · Reports · Settings"]
+        SIDEBAR["Shared Sidebar + Auth Guard<br/>(JWT stored in localStorage)"]
+        CHARTS["Chart.js<br/>(charts & KPIs)"]
+        DATA["MILL_DATA<br/>(canonical demo dataset)"]
+        PAGES --- SIDEBAR
+        PAGES --- CHARTS
+        PAGES --- DATA
+    end
+
+    subgraph SERVER["APPLICATION SERVER — Flask / Python (Logic Layer)"]
+        direction TB
+        STATIC["Static file serving"]
+        API["REST API<br/>/api/login · /api/me · /api/users"]
+        AUTH["Auth middleware<br/>token_required · role_required<br/>JWT verify · bcrypt hashing"]
+        API --- AUTH
+    end
+
+    subgraph STORAGE["DATA STORE (Data Layer)"]
+        direction TB
+        DB[("SQLite — users table<br/>MySQL in production")]
+    end
+
+    SIDEBAR -- "fetch() + Bearer JWT (HTTPS)" --> API
+    STATIC -- "serves HTML/CSS/JS" --> PAGES
+    AUTH -- "SQL (read / write)" --> DB

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alerts & Notifications — Smart Paper Mill Monitoring Dashboard" />
+  <title>Alerts · Smart Paper Mill Monitor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script src="../assets/theme.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="page-title">
+            <h1>Alerts &amp; Notifications</h1>
+            <p>Threshold and machine-status alerts</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="avatar topbar-avatar">AS</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- Summary chips -->
+        <section class="summary-bar" id="summaryBar"><!-- injected --></section>
+
+        <!-- Toolbar: filters + mark all read -->
+        <section class="toolbar">
+          <div class="filter-pills" id="filterPills" role="group" aria-label="Filter alerts">
+            <button class="pill active" data-filter="all">All</button>
+            <button class="pill" data-filter="unack">Unacknowledged</button>
+            <button class="pill" data-filter="danger"><span class="pdot red"></span>Critical</button>
+            <button class="pill" data-filter="warning"><span class="pdot amber"></span>Warning</button>
+            <button class="pill" data-filter="info"><span class="pdot blue"></span>Info</button>
+          </div>
+          <button class="btn btn-ghost" id="markAllBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Mark all read
+          </button>
+        </section>
+
+        <!-- Alerts list -->
+        <section class="alerts-list" id="alertsList"><!-- injected --></section>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M21 17H3a3 3 0 0 0 1.7-2.7V10a7.3 7.3 0 0 1 14.6 0v4.3A3 3 0 0 0 21 17Z"/></svg>
+          <p id="emptyText">No alerts to show.</p>
+        </div>
+
+        <footer class="page-footer">
+          &copy; 2026 Satia Industries Ltd. · Smart Paper Mill Monitoring · Academic Project
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../assets/auth.js"></script>
+  <script src="../data/dummyData.js"></script>
+  <script src="../assets/sidebar.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
