@@ -28,8 +28,10 @@ of your machine**. This is the simplest and most frequently used part of the sys
 
 | Module | Your role |
 |--------|-----------|
-| Production | Enter production records for each shift |
+| Production | Enter production records (output, GSM, moisture, speed) for each shift |
 | Machines | Check the status, temperature and efficiency of your machine |
+| Downtime | Record a machine stoppage if asked to (reason, start and end time) |
+| Alerts | View alerts that affect your machine (for example, high temperature) |
 
 ---
 
@@ -46,6 +48,9 @@ This is your main task. Do it at the end of each shift, or whenever a batch is c
    - **Production Quantity (tons)** — enter the tonnage produced (for example, 52.4).
    - **Paper Grade** — choose the grade you produced, such as *Copier Paper (70 GSM)* or
      *Writing Paper (80 GSM)*.
+   - **GSM (g/m²)** — the measured grammage of the paper (for example, 70).
+   - **Moisture (%)** — the measured moisture content (for example, 5.2).
+   - **Machine Speed (m/min)** — the running speed of the machine (for example, 620).
    - **Remarks** — optional notes (for example, "grade change mid-shift").
 3. Click **Save Record**.
    - A green confirmation message appears and your entry is added to the table below.
@@ -53,7 +58,11 @@ This is your main task. Do it at the end of each shift, or whenever a batch is c
 5. To leave without saving, click **Cancel**.
 
 > **Required fields** are marked with a red asterisk (\*). If you miss one, a message in red tells
-> you what to complete.
+> you what to complete. (GSM, moisture and speed are optional, but record them when you have them.)
+
+> **Quality check:** if the **GSM** or **moisture** you enter is outside the allowed tolerance, that
+> value appears in **red with a ⚠** in the records table, so an out-of-spec reading is easy to spot.
+> Re-check the measurement if a value is flagged.
 
 ---
 
@@ -82,7 +91,8 @@ This is your main task. Do it at the end of each shift, or whenever a batch is c
 ## 7. Tips and best practices
 
 - Enter production data promptly so the dashboard stays accurate for supervisors and managers.
-- Double-check the **quantity** and **paper grade** before saving — these feed the daily totals.
+- Double-check the **quantity**, **paper grade** and the **GSM / moisture / speed** readings before
+  saving — these feed the daily totals and the quality checks.
 - Use the **Remarks** field to explain anything unusual (sheet break, speed change, grade change).
 
 ---
@@ -91,8 +101,9 @@ This is your main task. Do it at the end of each shift, or whenever a batch is c
 
 | Problem | What to do |
 |---------|-----------|
-| The form will not save | Look for red error messages and complete any missing required field. |
+| The form will not save | Look for red error messages and complete any missing required field. Confirm the backend server is running. |
 | I selected the wrong grade | Use the **edit** icon to correct the record, then **Update Record**. |
+| A value shows in red with ⚠ | The GSM or moisture is outside the allowed tolerance — re-check the measurement and correct the record if it was a typing error. |
 | My entry is missing | Check the **search box** is empty; records are listed newest first. |
 
 ---

@@ -32,8 +32,10 @@ confirm the active shift at a glance.
 | Module | Your role |
 |--------|-----------|
 | Machines | Watch live machine status during your shift |
+| Downtime | Log machine stoppages with their cause and duration |
 | Maintenance | Raise and track maintenance jobs |
 | Production | Review and validate operator entries |
+| Alerts | Review and acknowledge threshold-based alerts |
 | Dashboard | Keep an eye on downtime and overall output |
 
 ---
@@ -69,9 +71,28 @@ confirm the active shift at a glance.
 2. Use the **search box** to check the entries your operators have submitted this shift.
 3. If an entry is wrong, click **edit** to correct it, or **delete** to remove a mistaken record.
 
-### 4.5 Watching downtime
-- On the **Dashboard**, the **Downtime Hours** card and the trend charts help you keep total
-  downtime under control during your shift.
+### 4.5 Logging a downtime event
+When a machine stops, record the stoppage so it is reflected in the downtime figures.
+1. Open **Downtime** from the sidebar.
+2. In the **Log Downtime Event** form, fill in:
+   - **Date** — defaults to today.
+   - **Machine** — the machine that stopped.
+   - **Shift** — Morning, Evening or Night.
+   - **Reason** — Mechanical, Electrical, Raw Material, Changeover, Planned, Power Cut or Other.
+   - **Start Time** and **End Time** — when the stoppage began and ended.
+3. Click **Save Event**. The **duration is calculated automatically**, the event appears in the
+   table, and the summary chips (total events, total downtime, top reason) update.
+4. Use the **search box** or the **reason filter** to review past events, and the **edit / delete**
+   icons to correct them.
+
+### 4.6 Watching overall downtime
+- On the **Dashboard**, the **Downtime Hours** card and trend charts, and the **Downtime Analysis**
+  chart in **Reports**, help you keep total downtime under control during your shift.
+
+### 4.7 Reviewing alerts
+1. Open **Alerts** from the sidebar.
+2. Review the threshold-based alerts for your line (high temperature, low efficiency, maintenance
+   due) and click **Acknowledge** to clear an alert, or **Mark all read** to clear the bell badge.
 
 ---
 
@@ -89,8 +110,9 @@ confirm the active shift at a glance.
 
 | Problem | What to do |
 |---------|-----------|
-| A new maintenance job is not saved | Check that all required fields are filled; error messages appear in red. |
+| A new maintenance or downtime entry is not saved | Check that all required fields are filled (errors appear in red) and that the backend server is running. |
 | A job has the wrong status colour | Edit the record and set the correct status, then update. |
+| A downtime duration looks wrong | Check the start and end times; the duration is computed from them (an end time before the start is treated as crossing midnight). |
 | Machine values keep changing | Running machines update live every few seconds — this is normal. |
 
 ---

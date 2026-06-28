@@ -22,8 +22,8 @@ how the plant is performing and producing summaries for management, rather than 
 2. Click **Sign In**. The **Dashboard** opens.
 
 ### 2.3 Moving around
-Use the left **sidebar** to switch between Dashboard, Machines, Production, Maintenance and
-Reports. The current page is highlighted. On mobile, use the **menu (☰)** button.
+Use the left **sidebar** to switch between Dashboard, Machines, Production, Maintenance, Downtime,
+Reports and Alerts. The current page is highlighted. On mobile, use the **menu (☰)** button.
 
 ---
 
@@ -31,10 +31,11 @@ Reports. The current page is highlighted. On mobile, use the **menu (☰)** butt
 
 | Module | Why it matters to you |
 |--------|-----------------------|
-| Dashboard | A single-screen overview of plant performance |
+| Dashboard | A single-screen overview of plant performance, including average OEE |
 | Machines | Health and utilization of all machines |
-| Reports | Trend analysis and exportable summaries |
-| Production / Maintenance | Reviewing what is happening on the floor |
+| Reports | Trend analysis and exportable summaries (CSV / PDF) |
+| Production / Maintenance / Downtime | Reviewing what is happening on the floor |
+| Alerts | Outstanding threshold-based alerts to act on |
 
 ---
 
@@ -57,17 +58,29 @@ Reports. The current page is highlighted. On mobile, use the **menu (☰)** butt
 
 ### 4.3 Generating and exporting a report
 1. Open **Reports**.
-2. Choose a period using the tabs: **This Week, This Month, This Quarter** or **This Year**.
-3. Review the summary cards and charts: Daily, Weekly and Monthly Production, Machine Utilization
-   and Downtime Analysis.
-4. Click **Export as PDF** (or **Print**). In the print dialog, choose **Save as PDF** to produce
-   a shareable report. The sidebar and buttons are automatically hidden in the printed version.
+2. Choose a period using the tabs — **7 Days**, **14 Days** or **30 Days** — and, if needed, narrow
+   the view with the **Machine** and **Shift** filters. The Daily Production chart and the Total /
+   Average summary cards update to match your selection.
+3. Review the summary cards (Total Production, Avg Daily Output, Plant OEE, Avg Efficiency, Total
+   Downtime) and the charts: Daily, Weekly and Monthly Production, **Machine Utilization**,
+   **OEE by Machine** and Downtime Analysis.
+4. To export, click **Export CSV** (downloads the figures), or **Export as PDF** / **Print** and
+   choose **Save as PDF** in the print dialog (the sidebar and buttons are hidden in the printout).
+   Each chart also has its own **download (⬇)** icon to export just that chart's data as CSV.
 
 ### 4.4 Interpreting the figures
-- **Efficiency / utilization** below target on a particular machine usually points to a
-  maintenance or process issue — cross-check it in the Maintenance module.
+- **Average OEE** on the Dashboard is the headline productivity measure (Availability × Performance
+  × Quality); the **OEE by Machine** chart in Reports shows which machines pull it down.
+- **Efficiency / utilization** below target on a particular machine usually points to a maintenance
+  or process issue — cross-check it in the Maintenance module.
 - A **rising downtime** trend is an early warning; review the Downtime Analysis chart to see the
   main causes.
+
+### 4.5 Reviewing alerts
+1. Open **Alerts** from the sidebar.
+2. Review threshold-based alerts (high temperature, low efficiency, maintenance due) grouped by
+   severity. Click **Acknowledge** to clear an individual alert, or **Mark all read** to clear all
+   and reset the bell badge.
 
 ---
 
@@ -85,7 +98,7 @@ Reports. The current page is highlighted. On mobile, use the **menu (☰)** butt
 |---------|-----------|
 | Charts are blank | Check your internet connection on first load. |
 | PDF export looks wrong | Use a desktop browser and select A4 / Portrait in the print dialog. |
-| Figures look unchanged | This demo uses fixed sample data; values are stable by design. |
+| Report figures look unchanged | Historical report data uses a stable seeded dataset; the **live** values (machine temperature/efficiency on the Machines page and the Dashboard's live-efficiency indicator) do update from the server every few seconds. |
 
 ---
 
