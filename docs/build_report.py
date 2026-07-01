@@ -18,6 +18,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DIAG = os.path.join(HERE, "diagrams")
 OUT = os.path.join(HERE, "Industrial_Training_Report.docx")
 
+# Presenter identity (overridable via environment; kept out of source)
+STUDENT = os.environ.get("SMM_NAME", "[STUDENT NAME]")
+UID = os.environ.get("SMM_UID", "[__________]")
+PDATE = os.environ.get("SMM_DATE", "[MONTH] [YEAR]")
+
 doc = Document()
 
 # ---------------- Page setup (A4) ----------------
@@ -158,7 +163,7 @@ for _ in range(2): doc.add_paragraph()
 title_line("SMART PAPER MILL PRODUCTION MONITORING DASHBOARD", 18, after=18)
 center("AN INDUSTRIAL TRAINING REPORT", 14, bold=True, after=14)
 center("Submitted by", 14, bold=True, italic=True, after=10)
-center("[STUDENT NAME]  (UID: [__________])", 16, bold=True, after=18)
+center(STUDENT + "  (UID: " + UID + ")", 16, bold=True, after=18)
 center("in partial fulfillment for the award of the degree of", 14, bold=True, italic=True, after=10)
 center("BACHELOR OF ENGINEERING", 16, bold=True, after=2)
 center("IN", 14, after=2)
@@ -166,7 +171,7 @@ center("COMPUTER SCIENCE & ENGINEERING", 16, bold=True, after=18)
 center("Industrial Training carried out at", 12, after=2)
 center("SATIA INDUSTRIES LIMITED", 14, bold=True, after=18)
 center("Chandigarh University", 14, after=2)
-center("[MONTH] [YEAR]", 14, after=2)
+center(PDATE, 14, after=2)
 page_break()
 
 # ==================================================================
