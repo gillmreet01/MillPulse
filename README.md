@@ -21,7 +21,7 @@ manufacturing plant — developed as an **industrial training / academic project
 - 🚨 **Alerts** — threshold-driven panel with acknowledgement
 - 📈 **Reports** — period / machine / shift filters, OEE-by-machine, **CSV & PDF export**
 - ⚙️ **Admin panel** — manage **users, machines and thresholds**, view the **audit log**
-- 🌗 **Dark mode**, responsive layout, and a 36-test automated backend suite
+- 🌗 **Dark mode**, responsive layout, and a 94-test automated backend suite (API + role-workflow)
 
 ---
 
@@ -70,7 +70,7 @@ python backend/app.py
 ## 🧪 Tests
 
 ```bash
-python -m pytest -v        # 36 tests covering auth, RBAC, CRUD, thresholds, audit, streaming
+python -m pytest -v        # 94 tests: core API (auth, RBAC, CRUD, thresholds, audit, streaming) + role workflows
 ```
 
 ---

@@ -32,7 +32,8 @@ python -m pytest -v
 
 ## 2. Automated API test results
 
-**Result: 15 / 15 passed.** (`15 passed` — pytest)
+**Result: 94 / 94 passed** — 36 in the core API suite (`test_api.py`) and 58 in the role-workflow
+suite (`test_role_workflows.py`). The table below lists representative cases from the core API suite.
 
 | # | Test case | Endpoint / behaviour | Expected | Result |
 |---|-----------|----------------------|----------|--------|
@@ -85,7 +86,7 @@ Steps to execute in a browser at http://localhost:5000 after starting the backen
 
 ## 4. Summary
 
-- **Automated backend tests: 15 / 15 passed**, covering authentication, JWT, role-based access control, production & maintenance CRUD, input validation, and live-stream authentication.
+- **Automated backend tests: 94 / 94 passed** — a core API suite (authentication, JWT, role-based access control, production / maintenance / downtime CRUD, quality fields, thresholds, user and machine management, audit log, live-stream authentication) plus a role-workflow suite that exercises each role's tasks end to end.
 - **Front-end:** all pages serve correctly (HTTP 200), all scripts pass syntax validation, and the data-driven behaviours (auth, CRUD, SSE telemetry, role enforcement) are verified through the API. Remaining purely-visual checks (U6, U10–U15) are documented for a final in-browser walkthrough.
 
 No blocking defects were found. The application is functioning as designed for an academic demonstration build.

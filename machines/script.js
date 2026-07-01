@@ -26,7 +26,7 @@
     capacity: m.capacity
   }));
 
-  const STATUS_LABEL = { running: "Running", idle: "Idle", maintenance: "Maintenance" };
+  const STATUS_LABEL = { running: "Running", idle: "Idle", maintenance: "Maintenance", stopped: "Stopped" };
 
   /* ---------- State ---------- */
   let activeFilter = "all";
@@ -48,7 +48,8 @@
     box:     '<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3.3 7 8.7 5 8.7-5"/>',
     layers:  '<path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/>',
     pause:   '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',
-    wrench:  '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>'
+    wrench:  '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>',
+    stop:    '<rect x="5" y="5" width="14" height="14" rx="2"/>'
   };
   const svg = (path, size = 20) =>
     `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
@@ -56,7 +57,10 @@
   /* ---------- Helpers ---------- */
   const tempClass = (t) => (t >= 88 ? "temp-high" : t >= 82 ? "temp-warn" : "");
   const effClass  = (e, status) => status !== "running" ? "off" : e >= 85 ? "good" : e >= 70 ? "mid" : "low";
-  const statusIcon = (status) => status === "running" ? ICONS.machine : status === "idle" ? ICONS.pause : ICONS.wrench;
+  const statusIcon = (status) => status === "running" ? ICONS.machine
+                               : status === "idle" ? ICONS.pause
+                               : status === "stopped" ? ICONS.stop
+                               : ICONS.wrench;
 
   /* =================================================================
      2. SUMMARY CHIPS

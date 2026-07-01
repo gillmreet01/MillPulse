@@ -281,7 +281,7 @@ bullets([
 h1("5. Functional Requirements")
 ctable("Functional requirements", ["ID", "Requirement"], [
     ["FR-1", "The system shall allow users to register/login with a username and password."],
-    ["FR-2", "The system shall enforce role-based access (Admin, Manager, Supervisor, Operator, Viewer)."],
+    ["FR-2", "The system shall enforce role-based access control; the roles and their permissions are defined in Section 7."],
     ["FR-3", "Operators shall be able to record production data (machine, shift, output, GSM, moisture, speed)."],
     ["FR-4", "The system shall run a data simulator that generates realistic live readings at fixed intervals."],
     ["FR-5", "The dashboard shall display real-time KPI cards (today's output, active machines, average OEE, reject rate)."],
@@ -324,6 +324,9 @@ ctable("User roles and permissions", ["Role", "Description", "Key Permissions"],
     ["Quality Inspector", "Checks paper quality.", "Record GSM/moisture/quality checks; flag rejects."],
     ["Viewer / Guest", "Read-only stakeholder.", "View dashboards and reports only; no data entry."],
 ])
+para("In the current demonstration build, four of these roles — Administrator, Plant Manager, Shift "
+     "Supervisor and Machine Operator — are implemented. The Quality Inspector and Viewer/Guest roles "
+     "form part of the design and are planned for future work.")
 
 # 8. FEATURES
 h1("8. Features")
@@ -371,6 +374,12 @@ para("The system uses a relational schema. The principal tables and their key fi
      "below; primary keys are marked PK and foreign keys FK. The entity-relationship diagram is shown "
      "in Figure 2.")
 figure("er-diagram.png", "Entity-relationship diagram of the database schema")
+para("The schema below is the normalized relational design (the specification target). The current "
+     "demonstration build implements a simplified, denormalized subset of this design in SQLite — for "
+     "example, the user role is stored as a text column rather than via a separate roles table, and "
+     "production records store machine, operator and shift as text values together with date, grade, "
+     "GSM, moisture, speed and remarks. The as-built schema is documented in the project report's "
+     "appendix.")
 
 def db_table(name, rows):
     subhead(name)
@@ -378,9 +387,9 @@ def db_table(name, rows):
 
 db_table("users", [["user_id", "INT", "PK"], ["name", "VARCHAR", ""], ["email", "VARCHAR", "Unique"],
                    ["password_hash", "VARCHAR", "bcrypt"], ["role_id", "INT", "FK -> roles"], ["created_at", "DATETIME", ""]])
-db_table("roles", [["role_id", "INT", "PK"], ["role_name", "VARCHAR", "Admin / Manager / Supervisor / Operator / Viewer"]])
+db_table("roles", [["role_id", "INT", "PK"], ["role_name", "VARCHAR", "See Section 7 for the full role list"]])
 db_table("machines", [["machine_id", "INT", "PK"], ["machine_name", "VARCHAR", ""],
-                      ["department", "VARCHAR", "Process department"], ["status", "ENUM", "Running / Idle / Maintenance"],
+                      ["department", "VARCHAR", "Process department"], ["status", "ENUM", "Running / Idle / Stopped / Maintenance"],
                       ["capacity", "DECIMAL", "Tonnes per day"], ["is_active", "BOOLEAN", ""]])
 db_table("production_records", [["record_id", "INT", "PK"], ["machine_id", "INT", "FK -> machines"],
                                 ["shift_id", "INT", "FK -> shifts"], ["operator_id", "INT", "FK -> users"],

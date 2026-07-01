@@ -250,7 +250,7 @@ ab = para("This report presents the design, development and validation of the Sm
      "an administrative panel for users, machines and thresholds, production and downtime data entry, "
      "automatic OEE computation, threshold-based alerts, analytical reports with CSV and PDF export, "
      "an audit trail, and a dark-mode interface. The backend was validated using an automated test "
-     "suite of thirty-six test cases, all of which pass. The project demonstrates the core principles "
+     "suite of ninety-four test cases, all of which pass. The project demonstrates the core principles "
      "of industrial production monitoring while remaining free, lightweight and runnable on standard "
      "student hardware.")
 ab.paragraph_format.line_spacing = 2.0
@@ -504,19 +504,23 @@ para("Key engineering results include the automatic OEE computation (Availabilit
 
 h2("4.2 Testing / Characterization / Data Validation")
 para("The backend was validated using an automated test suite executed with pytest, using an "
-     "isolated temporary database for each test. All thirty-six test cases pass. The categories of "
-     "tests are summarised in Table 6.")
+     "isolated temporary database for each test. All ninety-four test cases pass — a core API suite of "
+     "thirty-six tests and a role-workflow suite of fifty-eight tests that exercise each role's tasks "
+     "end to end. The categories of tests are summarised in Table 6.")
 table("Summary of automated test results",
-      ["Test category", "Cases", "Result"],
-      [["Health and authentication", "5", "Pass"],
-       ["Role-based access control", "4", "Pass"],
-       ["Production CRUD and quality fields", "6", "Pass"],
-       ["Maintenance and downtime", "5", "Pass"],
-       ["Live-stream authentication", "2", "Pass"],
-       ["User management", "5", "Pass"],
-       ["Machine management and thresholds", "8", "Pass"],
-       ["Activity / audit log", "1", "Pass"],
-       ["Total", "36", "All Pass"]])
+      ["Test suite / category", "Cases", "Result"],
+      [["Core API — health & authentication", "5", "Pass"],
+       ["Core API — role-based access control", "2", "Pass"],
+       ["Core API — production records & quality", "6", "Pass"],
+       ["Core API — downtime events", "4", "Pass"],
+       ["Core API — maintenance logs", "2", "Pass"],
+       ["Core API — live-stream authentication", "2", "Pass"],
+       ["Core API — user management", "5", "Pass"],
+       ["Core API — machine management", "5", "Pass"],
+       ["Core API — thresholds", "3", "Pass"],
+       ["Core API — activity / audit log", "2", "Pass"],
+       ["Role-workflow scenarios (Admin / Manager / Supervisor / Operator)", "58", "Pass"],
+       ["Total", "94", "All Pass"]])
 para("In addition to automated tests, the running application was validated through live request "
      "tests that confirmed the live telemetry stream, role enforcement, data persistence across "
      "restarts and the correct computation of downtime duration. Against the Software Requirements "
@@ -543,7 +547,7 @@ para("The industrial training project successfully delivered a functional, web-b
      "role-based interface; computes Overall Equipment Effectiveness; delivers live telemetry without "
      "page reloads; raises threshold-based alerts; provides analytical reports with export; and "
      "includes a complete administrative panel and audit trail. The backend is validated by a "
-     "thirty-six-case automated test suite, all passing.")
+     "ninety-four-case automated test suite, all passing.")
 para("The principal deviation from the original specification is the absence of live plant-floor "
      "instrumentation. This was a deliberate scope decision: integrating with real sensors and PLCs "
      "requires industrial protocols and plant access that are not available in an academic setting. "
@@ -609,7 +613,7 @@ bullets([
     "GET/PUT /api/thresholds — threshold configuration.",
     "GET/POST/PUT/DELETE /api/production — production records.",
     "GET/POST/PUT/DELETE /api/downtime — downtime events.",
-    "GET/POST /api/maintenance — maintenance logs.",
+    "GET/POST/PUT/DELETE /api/maintenance — maintenance logs.",
     "GET /api/stream — live telemetry (Server-Sent Events).",
     "GET /api/activity — audit log (Administrator).",
 ])

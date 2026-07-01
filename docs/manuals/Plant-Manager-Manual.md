@@ -98,7 +98,7 @@ Reports and Alerts. The current page is highlighted. On mobile, use the **menu (
 |---------|-----------|
 | Charts are blank | Check your internet connection on first load. |
 | PDF export looks wrong | Use a desktop browser and select A4 / Portrait in the print dialog. |
-| Report figures look unchanged | Historical report data uses a stable seeded dataset; the **live** values (machine temperature/efficiency on the Machines page and the Dashboard's live-efficiency indicator) do update from the server every few seconds. |
+| Daily figures look unchanged | The Dashboard KPIs and the Reports **Daily Production** chart/summary read live from the server, so they reflect records entered through the app. The weekly / monthly / utilisation / OEE-by-machine and downtime-breakdown charts use a stable reference dataset for a consistent demonstration. If a new entry doesn't appear, refresh the page so it re-queries the server. |
 
 ---
 

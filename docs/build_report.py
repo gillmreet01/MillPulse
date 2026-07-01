@@ -210,7 +210,7 @@ para("This report presents the design, development and validation of the Smart P
      "The delivered solution includes secure login, an administrative panel for users, machines and "
      "thresholds, production and downtime data entry, automatic OEE computation, threshold-based "
      "alerts, analytical reports with CSV and PDF export, an audit trail and a dark-mode interface. "
-     "The backend is validated by an automated suite of thirty-six tests, all passing.")
+     "The backend is validated by an automated suite of ninety-four tests, all passing.")
 
 # 2. OBJECTIVES
 h1("2. Objectives")

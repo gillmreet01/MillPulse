@@ -45,7 +45,7 @@ This is your main task. Do it at the end of each shift, or whenever a batch is c
    - **Shift** — select **Morning**, **Evening** or **Night**.
    - **Machine** — choose your machine ID (for example, PM-109).
    - **Operator** — select your name.
-   - **Production Quantity (tons)** — enter the tonnage produced (for example, 52.4).
+   - **Production Quantity (tonnes)** — enter the tonnage produced (for example, 52.4).
    - **Paper Grade** — choose the grade you produced, such as *Copier Paper (70 GSM)* or
      *Writing Paper (80 GSM)*.
    - **GSM (g/m²)** — the measured grammage of the paper (for example, 70).

@@ -137,7 +137,7 @@
         <td>${r.shift}</td>
         <td class="num">${r.output.toFixed(1)}</td>
         <td>${r.grade}</td>
-        <td class="num">${r.efficiency}%</td>
+        <td class="num">${r.efficiency == null ? "—" : r.efficiency + "%"}</td>
         <td><span class="badge ${r.status}"><span class="dot"></span>${statusLabel[r.status]}</span></td>`;
       body.appendChild(tr);
     });
@@ -340,17 +340,101 @@
   }
 
   /* =================================================================
-     10. INIT
+     10. LIVE DATA — recompute KPIs / charts / table from the API
      ================================================================= */
-  document.addEventListener("DOMContentLoaded", function () {
+  const ymd = (dt) => dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0");
+
+  function setKpi(key, value, unit) {
+    const k = DUMMY_DATA.kpis.find((x) => x.key === key);
+    if (k) { k.value = value; if (unit !== undefined) k.unit = unit; }
+  }
+
+  function applyLiveData(prod, machines, downtime) {
+    // ---- machine status counts + doughnut ----
+    const statusColor = { Running: "#16a34a", Idle: "#f59e0b", Maintenance: "#dc2626", Stopped: "#64748b" };
+    const order = ["Running", "Idle", "Maintenance", "Stopped"];
+    const counts = {};
+    machines.forEach((m) => { const s = m.status || "Idle"; counts[s] = (counts[s] || 0) + 1; });
+    DUMMY_DATA.machineStatus = order.filter((s) => counts[s]).map((s) => ({ label: s, count: counts[s], color: statusColor[s] || "#94a3b8" }));
+
+    // ---- production aggregates (anchored to the latest record date) ----
+    let maxDate = "";
+    prod.forEach((p) => { if (p.date && p.date > maxDate) maxDate = p.date; });
+    const ym = maxDate.slice(0, 7);
+    let today = 0, month = 0;
+    prod.forEach((p) => {
+      const q = Number(p.quantity) || 0;
+      if (p.date === maxDate) today += q;
+      if (p.date && p.date.slice(0, 7) === ym) month += q;
+    });
+
+    // ---- downtime on the latest day (minutes) ----
+    let dtToday = 0;
+    downtime.forEach((d) => { if (d.date === maxDate) dtToday += Number(d.duration_min) || 0; });
+
+    // ---- KPI values (icons / deltas preserved; OEE stays the seeded analytic) ----
+    setKpi("today", Math.round(today).toLocaleString(), "t");
+    setKpi("month", Math.round(month).toLocaleString(), "t");
+    setKpi("running", String(counts.Running || 0), "/ " + machines.length);
+    setKpi("maint", String(counts.Maintenance || 0), "");
+    setKpi("downtime", (dtToday / 60).toFixed(1), "h");
+
+    // ---- production trend (7 days ending at the latest record) ----
+    const mp = maxDate.split("-").map(Number);
+    const days = [], byDate = {};
+    for (let i = 6; i >= 0; i--) {
+      const dt = new Date(mp[0], mp[1] - 1, mp[2]); dt.setDate(dt.getDate() - i);
+      const s = ymd(dt); days.push(s); byDate[s] = 0;
+    }
+    prod.forEach((p) => { if (byDate[p.date] !== undefined) byDate[p.date] += Number(p.quantity) || 0; });
+    const tgt = Math.round(month / 30) || 0;
+    DUMMY_DATA.productionTrend = {
+      labels: days.map((s) => s.slice(5)),
+      output: days.map((s) => +byDate[s].toFixed(1)),
+      target: days.map(() => tgt)
+    };
+
+    // ---- recent production table (latest 7 entries; status joined from machines) ----
+    const statusByMachine = {};
+    machines.forEach((m) => { statusByMachine[m.machine_id] = (m.status || "").toLowerCase(); });
+    DUMMY_DATA.recentProduction = prod.slice().sort((a, b) => (b.id || 0) - (a.id || 0)).slice(0, 7).map((p) => ({
+      date: p.date, machine: p.machine, shift: p.shift,
+      output: Number(p.quantity) || 0, grade: p.grade || "—",
+      efficiency: null, status: statusByMachine[p.machine] || "running"
+    }));
+  }
+
+  function loadLiveDashboard() {
+    if (typeof window.smmApi !== "function") return Promise.resolve();   // static / file:// mode
+    return Promise.all([
+      smmApi("/api/production").then((r) => (r.ok ? r.json() : Promise.reject(new Error("prod")))),
+      smmApi("/api/machines").then((r) => (r.ok ? r.json() : Promise.reject(new Error("mach")))),
+      smmApi("/api/downtime").then((r) => (r.ok ? r.json() : []))
+    ]).then(function (res) {
+      const prod = res[0], machines = res[1];
+      const downtime = Array.isArray(res[2]) ? res[2] : [];
+      if (Array.isArray(prod) && prod.length && Array.isArray(machines) && machines.length) {
+        applyLiveData(prod, machines, downtime);
+      }
+    }).catch(function () { /* keep the seeded fallback */ });
+  }
+
+  function renderDataDriven() {
     renderKpis();
-    renderActions();
     renderTable();
     renderStatusLegend();
     buildCharts();
+  }
+
+  /* =================================================================
+     11. INIT
+     ================================================================= */
+  document.addEventListener("DOMContentLoaded", function () {
+    renderActions();                     // static quick actions
     initSidebar();
     updateClock();
     setInterval(updateClock, 1000 * 30); // refresh clock every 30s
-    connectLiveDashboard();              // auto-refresh live data from the backend (SSE)
+    connectLiveDashboard();              // live efficiency feed (SSE)
+    loadLiveDashboard().then(renderDataDriven);   // KPIs/charts/table: live API, else seeded
   });
 })();

@@ -126,6 +126,10 @@ ul { list-style: none; }
 .status-badge.running { color: var(--success); background: #ecfdf5; } .status-badge.running .dot { background: var(--success); }
 .status-badge.idle { color: #b45309; background: #fffbeb; } .status-badge.idle .dot { background: var(--warning); }
 .status-badge.maintenance { color: var(--danger); background: #fef2f2; } .status-badge.maintenance .dot { background: var(--danger); }
+.status-badge.stopped { color: #475569; background: #f1f5f9; } .status-badge.stopped .dot { background: #64748b; }
+.machine-card.status-stopped .mc-accent { background: #64748b; }
+.machine-card.status-stopped .mc-icon { background: #f1f5f9; color: #475569; }
+.pdot.slate { background: #64748b; }
 
 /* Metric tiles */
 .mc-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }

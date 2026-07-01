@@ -64,11 +64,12 @@
 
   /* =================================================================
      1b. RAW RECORDS + WORKING FILTERS (period / machine / shift)
-     Recomputes the Daily view + summary from MILL_DATA.productionRecords.
+     The Daily view + summary are computed from the LIVE API (/api/production),
+     falling back to the seeded dataset when the backend is unavailable.
      ================================================================= */
-  const RECORDS = (window.MILL_DATA && MILL_DATA.productionRecords) ? MILL_DATA.productionRecords : [];
+  let RECORDS = (window.MILL_DATA && MILL_DATA.productionRecords) ? MILL_DATA.productionRecords : [];
   const asofParts = ((window.MILL_DATA && MILL_DATA.meta && MILL_DATA.meta.asOfDate) || "2026-06-16").split("-").map(Number);
-  const ASOF = new Date(asofParts[0], asofParts[1] - 1, asofParts[2]);
+  let ASOF = new Date(asofParts[0], asofParts[1] - 1, asofParts[2]);
   const filterState = { days: 7, machine: "all", shift: "all" };
 
   const ymd = (dt) =>
@@ -362,15 +363,49 @@
   /* =================================================================
      6. INIT
      ================================================================= */
+  // Populate the machine filter from the machines that actually appear in the records
+  function populateMachineFilter() {
+    const msel = $("#machineFilter");
+    msel.innerHTML = '<option value="all">All machines</option>';
+    const ids = Array.from(new Set(RECORDS.map((r) => r.machineId).filter(Boolean))).sort();
+    ids.forEach((id) => { const o = document.createElement("option"); o.value = id; o.textContent = id; msel.appendChild(o); });
+    if (filterState.machine !== "all" && ids.indexOf(filterState.machine) === -1) filterState.machine = "all";
+    msel.value = filterState.machine;
+  }
+
+  // Anchor the rolling date window to the most recent record so newly-entered
+  // production shows up in the Daily view.
+  function setAsofFromRecords() {
+    let max = null;
+    RECORDS.forEach((r) => { if (r.date && (max === null || r.date > max)) max = r.date; });
+    if (max) { const p = max.split("-").map(Number); ASOF = new Date(p[0], p[1] - 1, p[2]); }
+  }
+
+  // Refresh the production data from the LIVE API so reports reflect records
+  // entered through the app. Falls back silently to the seeded dataset offline.
+  function loadProductionFromApi() {
+    if (typeof window.smmApi !== "function") return;   // static / file:// mode
+    smmApi("/api/production")
+      .then((r) => { if (!r.ok) throw new Error("api"); return r.json(); })
+      .then((rows) => {
+        if (!Array.isArray(rows) || !rows.length) return;
+        RECORDS = rows.map((p) => ({
+          date: p.date, shift: p.shift, machineId: p.machine, productionQty: Number(p.quantity) || 0
+        }));
+        setAsofFromRecords();
+        populateMachineFilter();
+        applyFilters();
+      })
+      .catch(() => { /* keep the seeded fallback already on screen */ });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     $("#reportDate").textContent = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
-    // Populate the machine filter from the machines that actually appear in the records
-    const ids = Array.from(new Set(RECORDS.map((r) => r.machineId))).sort();
-    const msel = $("#machineFilter");
-    ids.forEach((id) => { const o = document.createElement("option"); o.value = id; o.textContent = id; msel.appendChild(o); });
     renderSummary();
     buildCharts();
-    applyFilters();   // sync the daily chart + summary with the default filter
+    populateMachineFilter();   // seeded fallback first, so the page renders instantly
+    applyFilters();            // sync the daily chart + summary with the default filter
+    loadProductionFromApi();   // then refresh the Daily view from the live backend
     initSidebar();
   });
 })();
