@@ -17,10 +17,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DIAG = os.path.join(HERE, "diagrams")
 OUT = os.path.join(HERE, "Final_Project_Report.docx")
 
-# Presenter identity (overridable via environment; kept out of source)
+# Presenter identity + certificate details (overridable via environment; kept out of source)
 STUDENT = os.environ.get("SMM_NAME", "[STUDENT NAME]")
 UID = os.environ.get("SMM_UID", "[__________]")
 PDATE = os.environ.get("SMM_DATE", "[MONTH] [YEAR]")
+SUPERVISOR = os.environ.get("SMM_SUPERVISOR", "[Supervisor Name]")
+SUP_DESIG = os.environ.get("SMM_SUP_DESIG", "[Industry / Academic Designation]")
+SUP_DEPT = os.environ.get("SMM_SUP_DEPT", "[Department / Institution]")
+TRAIN_START = os.environ.get("SMM_START", "[START DATE]")
+TRAIN_END = os.environ.get("SMM_END", "[END DATE]")
 
 doc = Document()
 
@@ -190,16 +195,16 @@ title_line("TRAINING COMPLETION CERTIFICATE", 16, after=18)
 doc.add_paragraph()
 p = para('Certified that this project report "SMART PAPER MILL PRODUCTION MONITORING DASHBOARD" '
          'is the bonafide training work of ' + STUDENT + ' (UID: ' + UID + ') who carried out the '
-         'project work under my/our supervision during the industrial training from [START DATE] to '
-         '[END DATE].')
+         'project work under my/our supervision during the industrial training from ' + TRAIN_START +
+         ' to ' + TRAIN_END + '.')
 p.paragraph_format.line_spacing = 2.0
 doc.add_paragraph(); doc.add_paragraph()
 center("<<Signature of the Supervisor>>", 12, after=2)
 center("SIGNATURE", 12, bold=True, after=2)
-center("[Supervisor Name]", 12, after=2)
+center(SUPERVISOR, 12, after=2)
 center("SUPERVISOR", 12, bold=True, after=2)
-center("[Industry / Academic Designation]", 12, after=2)
-center("[Department / Institution]", 12, after=14)
+center(SUP_DESIG, 12, after=2)
+center(SUP_DEPT, 12, after=14)
 page_break()
 
 # ==================================================================
