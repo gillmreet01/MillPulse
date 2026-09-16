@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Paper Mill Production Monitoring Dashboard
 
 A web-based, real-time, role-based dashboard for monitoring the production of a paper
@@ -117,3 +118,7 @@ from `render.yaml`, and Render builds and runs it with gunicorn.
 
 Academic / educational project. Built entirely with free, open-source tools. All production
 figures are simulated and do not represent actual Satia Industries data.
+=======
+# MillPulse
+Developed a real-time production monitoring dashboard to track machine performance, production metrics, and operational efficiency using interactive visualizations.
+>>>>>>> 11770320deece942ebf2e3cf82d8c6f220e61ffb
